@@ -1,0 +1,27 @@
+# vim files
+*~
+*.swp
+*.swo
+
+# temp files
+*.tmp
+*.temp
+*.cache
+
+# log files
+*.log
+*.out
+
+# compiled source
+*.o
+*.obj
+
+# vim session files
+*.session.vim
+
+# clang_complete CXX args file
+.clang_complete
+
+# ctags
+tags
+
