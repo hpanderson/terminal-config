@@ -427,3 +427,8 @@ highlight ColorColumn ctermbg=gray
 highlight ColorColumn ctermbg=magenta "set to whatever you like
 call matchadd('ColorColumn', '\%81v', 100) "set column nr
 
+" fuzzy finder
+nnoremap <C-P> :FufCoverageFile<cr>
+" swap between source/header
+nnoremap <C-H> :A<cr>
+
