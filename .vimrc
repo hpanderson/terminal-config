@@ -200,10 +200,10 @@ autocmd Filetype markdown setlocal wrap linebreak nolist
 " PEP8 specifies 4 space tabs
 autocmd Filetype python setlocal expandtab ts=4 sts=4 sw=4
 " close file/tab
-map <C-F4> :q<cr>
+nnoremap <C-F4> :q<cr>
 
 " build tags for this project
-map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+nnoremap <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
 
 " check the highlight group under the cursor (for testing/modifying color schemes)
 " leader-wc = which color
@@ -353,10 +353,10 @@ nnoremap <F7> :cN<cr>
 nnoremap <F8> :cn<cr>
 
 " build
-set makeprg=mingw32-make\ -C\ ./build " make program
+set makeprg=python\ waf\ install_release " make program
 set makeef=make.out " make error file
 
-nmap <F5> :make<cr>
+nmap <F5> :Make<cr>
 
 let g:session_path="~/Dropbox/linux/dex.session.vim"
 
@@ -380,7 +380,7 @@ nnoremap <Leader>l :exec "source ".g:session_path<cr>
 " map <Leader>o :exec "!rm " &makeef "; makebg" v:servername "'" . &makeprg . "'"  &makeef<CR><CR> 
 
 
-nnoremap <C-F5> :exec "!cd build && " &makeprg " > " &makeef " 2>&1 &" <cr>
+nnoremap <C-M> :exec "!" &makeprg <cr>
 nnoremap <Leader>o :call OutOfSourceMake()<cr>
 
 function! OutOfSourceMake()
@@ -411,7 +411,7 @@ set directory=.,./.backup,/tmp
 vnoremap <Leader>a :!astyle --style=allman --indent=tab --align-pointer=type --indent-switches --indent-col1-comments --unpad-paren --pad-header --pad-oper --convert-tabs --add-brackets<cr>
 
 " for the ctags function name plugin - NOTE: this will slow down buffer loading/saving a bit
-" let g:ctags_statusline=1 " display function name on statusline
+let g:ctags_statusline=1 " display function name on statusline
 " :CTAGS " starts ctags script 
 
 " arduino file syntax highlighting
