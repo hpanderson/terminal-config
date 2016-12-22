@@ -357,6 +357,7 @@ set makeprg=python\ waf\ install_release " make program
 set makeef=make.out " make error file
 
 nmap <F5> :Make<cr>
+nnoremap <C-M> :Make<cr>
 
 let g:session_path="~/Dropbox/linux/dex.session.vim"
 
@@ -380,7 +381,6 @@ nnoremap <Leader>l :exec "source ".g:session_path<cr>
 " map <Leader>o :exec "!rm " &makeef "; makebg" v:servername "'" . &makeprg . "'"  &makeef<CR><CR> 
 
 
-nnoremap <C-M> :exec "!" &makeprg <cr>
 nnoremap <Leader>o :call OutOfSourceMake()<cr>
 
 function! OutOfSourceMake()
@@ -432,3 +432,4 @@ nnoremap <C-P> :FufCoverageFile<cr>
 " swap between source/header
 nnoremap <C-H> :A<cr>
 
+imap ;; <Esc>
