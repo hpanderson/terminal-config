@@ -353,7 +353,7 @@ nnoremap <F7> :cN<cr>
 nnoremap <F8> :cn<cr>
 
 " build
-set makeprg=python\ waf\ install_release " make program
+set makeprg=python\ waf\ install_debug " make program
 set makeef=make.out " make error file
 
 nmap <F5> :Make<cr>
