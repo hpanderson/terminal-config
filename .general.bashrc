@@ -16,6 +16,10 @@ alias grc='grep -inIEr -C2 --color=always'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+alias dx=~/dex/build.waf/release/DX11
+alias dxd=~/dex/build.waf/debug/DX11
+alias dxdd="lldb ~/dex/build.waf/debug/DX11"
+
 # case insensitive glob (does this work in linux or just cygwin?)
 shopt -s nocaseglob
 
