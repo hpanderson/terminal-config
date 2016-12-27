@@ -203,7 +203,7 @@ autocmd Filetype python setlocal expandtab ts=4 sts=4 sw=4
 nnoremap <C-F4> :q<cr>
 
 " build tags for this project
-nnoremap <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+nnoremap <Leader>ct :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
 
 " check the highlight group under the cursor (for testing/modifying color schemes)
 " leader-wc = which color
@@ -353,11 +353,13 @@ nnoremap <F7> :cN<cr>
 nnoremap <F8> :cn<cr>
 
 " build
-set makeprg=python\ waf\ install_debug " make program
-set makeef=make.out " make error file
+" make program
+set makeprg=python\ waf\ install_debug
+" make error file
+set makeef=make.out
 
-nmap <F5> :Make<cr>
-nnoremap <C-M> :Make<cr>
+" nmap <F5>:Make<cr>
+nnoremap <Leader>m :Make<cr>
 
 let g:session_path="~/Dropbox/linux/dex.session.vim"
 
@@ -432,4 +434,4 @@ nnoremap <C-P> :FufCoverageFile<cr>
 " swap between source/header
 nnoremap <C-H> :A<cr>
 
-imap ;; <Esc>
+imap <Leader>e <Esc>
