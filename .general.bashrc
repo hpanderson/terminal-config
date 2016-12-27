@@ -6,7 +6,9 @@ alias du='du -h'
 alias df='df -h'
 
 # colors
-alias ls='ls -hF --color=tty'
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  alias ls='ls -hF --color=tty'
+fi
 # grep with color, i = case insensitive, n = show line number, I = text only, E = posix regex, r = recursive
 alias gr='grep -inIEr --color=always'
 # add in the surrounding 2 lines
