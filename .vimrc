@@ -10,6 +10,51 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+if has('win32') || has('win64')
+  set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
+endif
+
+" ConEmu
+if !empty($CONEMUBUILD)
+	"echom "Running in conemu"
+	set termencoding=utf8
+	set term=xterm
+  set t_Co=256
+  let &t_AB="\e[48;5;%dm"
+  let &t_AF="\e[38;5;%dm"
+  " termcap codes for cursor shape changes on entry and exit to
+  " /from insert mode
+  " doesn't work
+  " let &t_ti="\e[1 q"
+  " let &t_SI="\e[5 q"
+  " let &t_EI="\e[1 q"
+  " let &t_te="\e[0 q"
+endif
+
+" set font for gui sessions
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h10:cANSI
+  endif
+
+  highlight Normal guibg=#2B1B17
+
+  " hide menu, toolbar, scrollbar
+  set guioptions=i
+
+  " this turns them back on
+  " set guioptions=imTrL
+
+  " or hide them individually
+  "set guioptions -=m
+  "set guioptions -=t
+  "set guioptions -=r
+endif
+
 " pathogen allows you to store plugins in a single directory in .vim/bundle/plugin_name
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -78,7 +123,7 @@ if &t_Co > 2 || has("gui_running")
 	syntax on " turn on syntax highlighting
 	set hlsearch " highlights search terms
 endif
-  
+
 set term=xterm
 set t_Co=256
 let &t_AB="\e[48;5;%dm"
@@ -109,7 +154,7 @@ colorscheme vividchalk
 "hi xmlError ctermbg=Red
 "" and ruby delimiter
 "hi erubyDelimiter ctermfg=Cyan
-"" and TODOs 
+"" and TODOs
 "hi cTodo ctermbg=DarkRed
 "" and JS braces
 "hi javaScriptBraces ctermfg=White
@@ -118,7 +163,7 @@ colorscheme vividchalk
 
 " use solarized colors (overrides the ones above) - turned off because setting these up to look the same across terminals is a huge pain
 "	set t_Co=16
-"	
+
 "	" to switch to transparent to get the bg from the terminal
 "	" let g:solarized_termtrans = 1
 "	"let g:solarized_termcolors=16
@@ -126,6 +171,12 @@ colorscheme vividchalk
 "
 "	colorscheme solarized
 "	call togglebg#map("<Leader>bg")
+"
+if has("gui_running")
+  " change to a non-black background in gvim
+  " (helps differentiate from git bash)
+  highlight Normal guibg=#2B1B17
+endif
 
 function! ExtraCPPSyntax()
 	" add extra highlight for DEX double typedef
@@ -170,10 +221,10 @@ if has("autocmd")
 	au BufRead,BufNewFile *.r setfiletype r
 	" au FileType r set autoindent
 	" au FileType r set cindent
-	
+
 	" dxpx files are xml
 	au BufRead,BufNewFile *.dxpx setfiletype xml
-	
+
 else
 
   set autoindent " always set autoindenting on
@@ -250,6 +301,9 @@ let g:clang_close_preview = 1
 " the default is 'path, .clang_complete, gcc'
 let g:clang_auto_user_options = 'path, .clang_complete'
 
+" turn off bells and flashes
+set t_vb=
+
 " get rid of windows clang.exe stderr output
 " let g:clang_user_options = '2> NUL || exit 0'
 
@@ -266,11 +320,11 @@ noremap <F9> :noautocmd execute "grep! -r \"" . expand("<cword>") . "\" . --incl
 set diffopt+=iwhite
 function! CompareXMLTests()
 	let line = split(getline('.'))
-	let output = expand("%:p:h") . "/" . line[4] 
+	let output = expand("%:p:h") . "/" . line[4]
 	let answer = expand("%:p:h") . "/" . line[8]
 
-	exec "tabe " . output	
-	exec "vert diffs " . answer 
+	exec "tabe " . output
+	exec "vert diffs " . answer
 	set nocursorline " this is really slow when looking at xml files
 endfunction
 
@@ -297,19 +351,19 @@ nnoremap R "_d
 vnoremap <Leader>c :s/^/\/\//<cr>:let @/ = ""<cr>
 vnoremap <Leader>uc :s/^\/\///<cr>:let @/ = ""<cr>
 
-nnoremap ,, <C-w>T<cr> 
+nnoremap ,, <C-w>T<cr>
 " open nerd tree in the same dir as the current file
 nnoremap <C-O> :NERDTreeFind<cr>
 map <Leader>nt :NERDTreeTabsToggle<cr>
 
-function! MoveBufferToNewTab() 
-	let n = bufnr('%') 
-	tabnew 
-	exec "buffer ".n 
-	tabprev 
-	quit 
-	tabnext 
-endfunction 
+function! MoveBufferToNewTab()
+	let n = bufnr('%')
+	tabnew
+	exec "buffer ".n
+	tabprev
+	quit
+	tabnext
+endfunction
 
 " Find file in current directory and edit it.
 " e.g.
@@ -380,7 +434,7 @@ nnoremap <Leader>l :exec "source ".g:session_path<cr>
 
 " use makebg script
 " nnoremap <F5> :exec "!makebg" v:serverame "'" . &makeprg . "'" &makeef<CR><CR>
-" map <Leader>o :exec "!rm " &makeef "; makebg" v:servername "'" . &makeprg . "'"  &makeef<CR><CR> 
+" map <Leader>o :exec "!rm " &makeef "; makebg" v:servername "'" . &makeprg . "'"  &makeef<CR><CR>
 
 
 nnoremap <Leader>o :call OutOfSourceMake()<cr>
@@ -406,7 +460,7 @@ set nowrap
 
 " this sets the backup directory to .backup
 set backupdir=./.backup,.,/tmp
-" this sets the swap directory 
+" this sets the swap directory
 set directory=.,./.backup,/tmp
 
 " call astyle with the current selection
@@ -414,7 +468,7 @@ vnoremap <Leader>a :!astyle --style=allman --indent=tab --align-pointer=type --i
 
 " for the ctags function name plugin - NOTE: this will slow down buffer loading/saving a bit
 let g:ctags_statusline=1 " display function name on statusline
-" :CTAGS " starts ctags script 
+" :CTAGS " starts ctags script
 
 " arduino file syntax highlighting
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
@@ -426,8 +480,10 @@ highlight ColorColumn ctermbg=gray
 " this is how you activate the colorcolumn
 " set colorcolumn=80
 
-highlight ColorColumn ctermbg=magenta "set to whatever you like
-call matchadd('ColorColumn', '\%81v', 100) "set column nr
+if empty($CONEMUBUILD)
+  highlight ColorColumn ctermbg=magenta "set to whatever you like
+  call matchadd('ColorColumn', '\%81v', 100) "set column nr
+endif
 
 " fuzzy finder
 nnoremap <C-P> :FufCoverageFile<cr>
