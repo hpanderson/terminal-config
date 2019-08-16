@@ -459,9 +459,9 @@ set nowrap
 " set number
 
 " this sets the backup directory to .backup
-set backupdir=./.backup,.,/tmp
+set backupdir=~/.vimtmp,.,/tmp
 " this sets the swap directory
-set directory=.,./.backup,/tmp
+set directory=~/.vimtmp,.,/tmp
 
 " call astyle with the current selection
 vnoremap <Leader>a :!astyle --style=allman --indent=tab --align-pointer=type --indent-switches --indent-col1-comments --unpad-paren --pad-header --pad-oper --convert-tabs --add-brackets<cr>

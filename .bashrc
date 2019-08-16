@@ -16,3 +16,4 @@ if [ -f "${HOME}/.local.bashrc" ]; then
 	source "${HOME}/.local.bashrc"
 fi
 
+ssh-add
