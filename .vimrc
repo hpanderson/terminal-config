@@ -317,7 +317,7 @@ noremap <F9> :noautocmd execute "grep! -r \"" . expand("<cword>") . "\" . --incl
 " for XML tests, open files under cursor in split diff windows in new tab
 " just uses a direct index of a split string, so this will break if the
 " working in the XML test output changes
-set diffopt+=iwhite
+"set diffopt+=iwhite
 function! CompareXMLTests()
 	let line = split(getline('.'))
 	let output = expand("%:p:h") . "/" . line[4]
